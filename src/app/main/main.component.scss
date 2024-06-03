@@ -1,0 +1,374 @@
+.chat-circle {
+  width: 40px;
+  height: 40px;
+  background-image: url('https://lh3.googleusercontent.com/a/ACg8ocLtxhTl3Xr-8cfGPO1vIMfmoaDbEMxLzLgTOtuuB8Vy3t1Znw=s96-c');
+  background-size: cover;
+  border-radius: 50%;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  cursor: pointer;
+}
+
+.dialog-panel {
+  width: 250px;
+  height: 55vh;
+  position: fixed;
+  padding: 20px;
+  right: 25px;
+  bottom: 65px;
+  opacity: 0.93;
+  background-color:hsl(232, 18%, 8%);
+  display: flex;
+  flex-direction: column
+}
+
+.scale-in-br{-webkit-animation:scale-in-br .5s cubic-bezier(.25,.46,.45,.94) both;animation:scale-in-br .5s cubic-bezier(.25,.46,.45,.94) both}
+@-webkit-keyframes scale-in-br{0%{-webkit-transform:scale(0);transform:scale(0);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}}@keyframes scale-in-br{0%{-webkit-transform:scale(0);transform:scale(0);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}100%{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}}
+.scale-out-br{-webkit-animation:scale-out-br .5s cubic-bezier(.55,.085,.68,.53) both;animation:scale-out-br .5s cubic-bezier(.55,.085,.68,.53) both}
+@-webkit-keyframes scale-out-br{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}100%{-webkit-transform:scale(0);transform:scale(0);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}}@keyframes scale-out-br{0%{-webkit-transform:scale(1);transform:scale(1);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}100%{-webkit-transform:scale(0);transform:scale(0);-webkit-transform-origin:100% 100%;transform-origin:100% 100%;opacity:1}}
+@import url("https://use.typekit.net/ovt6ynt.css");
+@import url("https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400;1,500;1,600;1,700;1,800&family=Oswald:wght@200;300;400;500;600;700&family=Roboto+Condensed:wght@300;400;700&family=Roboto:wght@100;300;400;500;700;900&family=Source+Sans+Pro:ital,wght@0,200;0,300;0,400;0,600;0,700;0,900;1,200;1,300;1,400;1,600;1,700;1,900&family=Spectral:wght@200;300;400;500;600;700;800&display=swap");
+
+.component-container {
+  padding: 0;
+  margin: 0;
+  height: 100%;
+  display: inline-flex;
+  opacity: 0.95;
+  width: 100%;
+}
+.feed-wrapper {
+  flex: auto;
+  height: 100%;
+}
+
+.profile-card-wrapper {
+  width: 250px;
+  margin-right: 10px;
+  display: flex;
+  flex-direction: column;
+}
+.container {
+  width: 100%;
+  height: 100%;
+  text-align: center;
+  margin: auto;
+}
+.container .card {
+  height: 100%;
+
+  background-color: white;
+  border-radius: 50%;
+  border: 1px solid #e3e3e3;
+  margin: 0 auto;
+}
+.tabs {
+  text-align: left;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.tabs input + label:hover {
+  color: #777;
+}
+
+.tabs input {
+  position: relative;
+  opacity: 0;
+  margin: auto !important;
+  padding: 0;
+}
+.tabs input + label {
+  margin: 12px -8px;
+  width: auto;
+  transition: all 0.3s;
+  text-align: center;
+  border: none;
+  border-bottom: 0.5pt solid #1d1e22;
+  color: #e7e9f5;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  padding: 5pt 10pt;
+  vertical-align: top;
+  justify-content: flex-start;
+  background: #333;
+  box-shadow: 1px 1px 2px 1px #231f20;
+  text-transform: uppercase;
+  font-weight: 300;
+  font-size: 8pt;
+  background: #26292c;
+  margin-bottom: 0.5px;
+  border-radius: 6px;
+  border-top: 1px solid #3b3d3f;
+  letter-spacing: 0.1666666667em !important;
+  font-family: "antique-olive" !important;
+  background: hsl(232deg 6% 17%);
+  cursor: pointer;
+}
+.content {
+  text-align: left;
+  line-height: 20px;
+  height: 100%;
+  border-radius: 6px;
+  box-shadow: 0 2px 3px rgb(10 10 10 / 10%), 0 0 0 1px rgb(10 10 10 / 10%);
+  display: block;
+  z-index: 2;
+  border-top: 1px solid #3b3d3f;
+  background: hsl(232deg 16% 15%);
+  position: relative;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.content .item {
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s;
+  position: absolute;
+  color: #f0f2fc;
+  width: 100%;
+}
+.content .enabled-item {
+  transition: all 0.3s;
+  position: absolute;
+  color: #f0f2fc;
+  width: 97%;
+}
+
+#tab-rooms:checked + label {
+  color: deepskyblue;
+}
+#tab-faq:checked + label {
+  color: #ffaa75;
+}
+#tab-statistic:checked + label {
+  color: #ffadfa;
+}
+#tab-friends:checked + label {
+  color: #51a14c;
+}
+#tab-friends-filter:checked + label {
+  color: crimson;
+}
+
+#tab-rooms:checked ~ section #content-rooms,
+#tab-faq:checked ~ section #content-faq,
+#tab-statistic:checked ~ section #content-statistic {
+  opacity: 1;
+  visibility: visible;
+}
+#tab-friends:checked ~ section #content-friends,
+#tab-friends-filter:checked ~ section #content-friends-filter {
+  opacity: 1;
+  visibility: visible;
+}
+
+
+
+.container .card {
+  min-height: 140px;
+  border-radius: 6px;
+  border: none;
+  margin: 0 auto;
+  z-index: 4 !important;
+  position: relative;
+  background: linear-gradient(#141e30, #243b55);
+  background: #16181a;
+  border-top: 1px solid #3b3d3f;
+  background: hsl(232deg 18% 8%);
+}
+
+
+
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
+h3 {
+  margin: 10px 0;
+}
+
+h6 {
+  margin: 5px 0;
+  text-transform: uppercase;
+}
+
+p {
+  font-size: 14px;
+  line-height: 21px;
+}
+
+.card-container {
+  background-color: hsl(232deg 16% 15%);
+  border-radius: 6px;
+  box-shadow: 0px 10px 20px -10px rgba(0,0,0,0.75);
+  color: #B3B8CD;
+  position: relative;
+  width: 350px;
+  max-width: 100%;
+  text-align: center;
+}
+
+.card-container .round {
+  border: 1px solid;
+  border-radius: 6px;
+  padding: 7px;
+}
+
+button.primary {
+  background-color: #03BFCB;
+  border: 1px solid #03BFCB;
+  border-radius: 6px;
+  color: #231E39;
+  font-family: Montserrat, sans-serif;
+  font-weight: 500;
+  padding: 10px 25px;
+}
+
+button.primary.ghost {
+  background-color: transparent;
+  color: #02899C;
+}
+
+.skills {
+  background-color: hsl(232deg 11% 18%);
+  text-align: left;
+  padding: 15px;
+  margin-top: 30px;
+}
+
+.skills ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skills ul li {
+  border: 1px solid #3e3759;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 12px;
+  margin: 0 7px 7px 0;
+  padding: 7px;
+}
+.card-container .online {
+  background-color: green;
+  border-radius: 6px;
+  width: 10px;
+  height: 10px;
+  position: absolute;
+  top: 15px;
+  left: 15px;
+}
+
+.messageBody {
+  display: flex;
+  align-items: flex-start;
+}
+
+.user-avatar {
+  flex: 0 0 auto;
+  width: 4.2rem;
+  height: 4.2rem;
+  margin-top: -1.5rem;
+  background-size: contain;
+  border-radius: 0.5rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.23);
+}
+
+.messageBox {
+  flex: 0 1 auto;
+  position: relative;
+  display: inline-block;
+  margin-left: .75rem;
+}
+
+#log .emote {
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+  padding: 0.4em 0.2em;
+  position: relative;
+}
+
+#log .emote img {
+  display: inline-block;
+  height: 1em;
+  opacity: 0;
+}
+
+#log .message,#log .meta {
+  vertical-align: top;
+}
+
+#log .meta {
+  position: absolute;
+  bottom: 100%;
+  left: 0px;
+  font-size: .8em;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: #f7f7f7;
+  padding: 0.25rem .75rem;
+  margin: 0 0 -.3rem -.25rem;
+  z-index: 1;
+  transform: rotate(-3deg);
+}
+#log .metaBG {
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  border-left: 5px solid var(--user-color);
+  background-color: #101010;
+  transform: skewX(-10deg);
+}
+
+#log .message {
+  height: 100%;
+  flex: 1 1 auto;
+  overflow-wrap: anywhere;
+}
+
+.badge {
+  display: inline-block;
+  margin-right: 0.2em;
+  position: relative;
+  height: 1em;
+  vertical-align: middle;
+  top: -0.1em;
+  z-index: 1;
+}
+
+.name {
+  margin-left: 0.2em;
+  position: relative;
+  z-index: 1;
+}
+
+.pronoun {
+  color: #000;
+  background-color: #FFF;
+  position: relative;
+  z-index: 1;
+  padding: .1rem .25rem;
+  border-radius: .2rem
+}
+
+.pronoun:empty { display: none; }
+
+#log .emote.size-3 {
+  width: 7rem;
+  height: 7rem;
+  display: block;
+  margin: 0.4em 0.2em;
+}
+
+#log .emote.size-2 {
+  width: 3.5rem;
+  height: 3.5rem;
+  display: inline-block;
+  margin: 0.4em 0.2em;
+}
+

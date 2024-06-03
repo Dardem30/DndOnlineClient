@@ -1,0 +1,72 @@
+<h2 mat-dialog-title>Create Room</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Room Name</mat-label>
+      <input matInput name="name" [(ngModel)]="roomData.name">
+      <mat-error *ngIf="roomData.name == null || roomData.name.trim() == ''">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <div style="display: flex">
+      <mat-form-field style="margin-right: 20px;">
+        <mat-label>Min People</mat-label>
+        <input matInput type="number" name="minPeople" [(ngModel)]="roomData.minPeople" min="2" max="6">
+        <mat-error *ngIf="roomData.minPeople == null">
+          The field is required
+        </mat-error>
+        <mat-error *ngIf="roomData.minPeople > roomData.maxPeople">
+          Min people can't be > than max people
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field>
+        <mat-label>Max People</mat-label>
+        <input matInput type="number" name="maxPeople" [(ngModel)]="roomData.maxPeople" min="2" max="6">
+        <mat-error *ngIf="roomData.maxPeople == null">
+          First Name is required
+        </mat-error>
+        <mat-error *ngIf="roomData.minPeople > roomData.maxPeople">
+          Min people can't be > than max people
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <mat-form-field style="width: 100%;">
+      <mat-label>Description</mat-label>
+      <textarea matInput name="description" [(ngModel)]="roomData.description" style=" height: 155px"></textarea>
+    </mat-form-field>
+  </form>
+  <h3>Invite list:</h3>
+  <div class="item" style="padding: 5px">
+
+              <textarea class="message-textarea" style="height: 16px;margin-bottom: 10px"
+                        (keyup)="searchContacts($event)" placeholder="Find by nickname"></textarea>
+
+    <div id="log" style="max-height: 120px;overflow-y: auto;flex-grow: 1;padding-top: 35px">
+      <div class="messageBody" style="margin-bottom: 30px" *ngFor="let contact of contacts">
+        <img class="user-avatar"
+             [src]="contact.avatar"/>
+        <div class="messageBox" style="--user-color: #234A65">
+      <span class="meta">
+        <span class="pronoun"></span>
+        <span class="name">#{{contact.nickName}}</span>
+        <i class="metaBG"></i>
+      </span>
+
+          <div style="margin-top: 15px">
+            <button class="button" *ngIf="!isInvited(contact.id)" (click)="addToInviteList(contact)"><i
+              class="fa fa-pencil" aria-hidden="true"></i></button>
+            <button class="button" *ngIf="isInvited(contact.id)" (click)="removeFromInviteList(contact)"><i
+              class="fa fa-times" aria-hidden="true"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <mat-form-field style="width: 100%;" appearance="fill">
+    <mat-label>Password</mat-label>
+    <input matInput type="password"  name="password" [(ngModel)]="roomData.password">
+  </mat-form-field>
+  <button (click)="saveRoom()">Save</button>
+</mat-dialog-content>

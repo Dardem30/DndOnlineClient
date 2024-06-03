@@ -1,0 +1,13 @@
+<h2 mat-dialog-title>Add tag</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Tag</mat-label>
+      <input matInput name="name" [(ngModel)]="data.tags">
+      <mat-error *ngIf="data.tags == null || data.tags.trim() == ''">
+        Please fill the field
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <button (click)="updateTags()">Save</button>
+</mat-dialog-content>

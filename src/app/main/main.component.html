@@ -1,0 +1,207 @@
+<div class="component-container" style="opacity: 0.93;padding: 10px">
+  <div class="profile-card-wrapper">
+    <div class="card-container" style="padding-top: 30px">
+      <span class="online"></span>
+      <img class="round" [src]="loggedInUser.photoUrl"
+           alt="user"
+           style="width: 110px; height: 110px;object-fit: cover;border-radius: 50%!important;"/>
+      <h3>{{loggedInUser.name}}</h3>
+      <h6>The</h6>
+      <p>#{{loggedInUser.nickname}}</p>
+      <div class="buttons">
+        <button class="primary" (click)="openProfileEditDialog()">
+          Profile
+        </button>
+        <button class="primary ghost" (click)="openRoomCreationDialog()">
+          Create Room
+        </button>
+      </div>
+      <div class="skills">
+        <h6>Tags</h6>
+        <ul *ngIf="loggedInUser.tags.length == 0">
+          <li>Please</li>
+          <li>Add</li>
+          <li>At</li>
+          <li>Least</li>
+          <li>1 <i style="margin-left: 3px;cursor: pointer" class="icon-remove-sign"></i></li>
+          <li>Tag</li>
+          <li>^_^</li>
+          <span style="margin-left: 5px;cursor: pointer" (click)="addTagDialog()">&#43;</span>
+        </ul>
+        <ul *ngIf="loggedInUser.tags.length != 0">
+          <li *ngFor="let tag of loggedInUser.tags">{{tag.tag}} <i style="margin-left: 3px;cursor: pointer"
+                                                                   class="icon-remove-sign"
+                                                                   (click)="removeTag(tag.id)"></i></li>
+          <span style="margin-left: 5px;cursor: pointer" (click)="addTagDialog()">&#43;</span>
+        </ul>
+      </div>
+    </div>
+    <div class="card-container" style="margin-top: 10px;margin-bottom: 15px;height: 100%">
+      <div class="container">
+        <div class="card tabs">
+          <div>
+            <input id="tab-friends" type="radio" class="tab" checked="checked"
+                   name="friends-content-tabs" (click)="toggleTabs('content-friends')"/>
+            <label for="tab-friends" class="tab">Friends</label>
+            <input id="tab-friends-filter" type="radio" class="tab" name="friends-content-tabs"
+                   (click)="toggleTabs('content-friends-filter')"/>
+            <label for="tab-friends-filter" class="tab">Filters</label>
+          </div>
+          <section class="content">
+            <div class="item" id="content-friends" style="padding: 5px">
+
+              <textarea class="message-textarea" style="height: 16px;margin-bottom: 10px;width: 238px"
+                        (keyup)="searchContacts($event)" placeholder="Find by nickname"></textarea>
+
+              <div id="log" style="flex-grow: 1;padding-top: 20px">
+                <div class="messageBody" style="margin-bottom: 30px" *ngFor="let contact of contacts">
+                  <img class="user-avatar"
+                       [src]="contact.avatar"/>
+                  <div class="messageBox" style="--user-color: #234A65">
+      <span class="meta">
+        <span class="pronoun"></span>
+        <span class="name">#{{contact.nickName}}</span>
+        <i class="metaBG"></i>
+      </span>
+
+                    <div style="margin-top: 15px">
+                      <button class="button" style="margin-right: 5px" (click)="startChat(contact)"><i
+                        class="fa fa-comments" aria-hidden="true"></i>
+                      </button>
+                      <button class="button" *ngIf="!isContact(contact.id)" (click)="addContact(contact)"><i
+                        class="fa fa-pencil" aria-hidden="true"></i></button>
+                      <button class="button" *ngIf="isContact(contact.id)" (click)="removeContact(contact)"><i
+                        class="fa fa-times" aria-hidden="true"></i></button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="item" id="content-friends-filter">
+              filter
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="profile-card-wrapper" style="flex: 1">
+    <div class="card-container" style="width:100%;margin-bottom: 15px;height: 100%">
+      <div class="container">
+        <div class="card tabs">
+          <div>
+            <input id="tab-rooms" type="radio" class="tab" checked="checked" name="main-content-tabs"
+                   (click)="toggleTabs('content-rooms')"/>
+            <label for="tab-rooms" class="tab">Rooms</label>
+            <input id="tab-faq" type="radio" class="tab" name="main-content-tabs" (click)="toggleTabs('content-faq')"/>
+            <label for="tab-faq" class="tab">Info</label>
+            <input id="tab-statistic" type="radio" class="tab" name="main-content-tabs"
+                   (click)="toggleTabs('content-statistic')"/>
+            <label for="tab-statistic" class="tab">Statistic</label>
+          </div>
+
+          <section class="content">
+            <div class="item" id="content-rooms">
+              <mat-table [dataSource]="dataSource" style="width: 100%">
+                <ng-container matColumnDef="name">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef> Name</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="description">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef> Description</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element"> {{element.description}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="minPeople">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef> Min People</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element"> {{element.minPeople}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="maxPeople">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef> Max People</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element"> {{element.maxPeople}} </mat-cell>
+                </ng-container>
+                <ng-container matColumnDef="participants">
+                  <mat-header-cell mat-header-cell *matHeaderCellDef> Current Participants</mat-header-cell>
+                  <mat-cell mat-cell *matCellDef="let element"> {{element.participants.length}} </mat-cell>
+                </ng-container>
+
+                <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+                <mat-row style="cursor: pointer" matRipple *matRowDef="let row; columns: displayedColumns;"
+                         (click)="openRoom(row)"></mat-row>
+              </mat-table>
+            </div>
+            <div class="item" id="content-faq" style="padding: 10px;overflow-y: auto">
+              <h1>Welcome to DnD Web Application</h1>
+              <p>This application is under construction and is currently being developed by Roman Lukashenko.</p>
+
+              <h2>Current Features:</h2>
+              <ul>
+                <li>Firebase Authentication with validation by Spring Security</li>
+                <li>Profile Maintaining</li>
+                <li>Searching Other Users by Nickname</li>
+                <li>Chats with Other Users</li>
+                <li>Creating Rooms</li>
+                <li>Invites to a Room</li>
+                <li>Job that will Drop Room if there's no participants for more than 2 mins(Except eternal rooms which were created by the dev)</li>
+                <li>Support for Rooms for max 6 people with support for all basic conference functionalities(video and audio streams, general chat)</li>
+              </ul>
+
+              <h2>Planned Features:</h2>
+              <ul>
+                <li>Implement DnD Gameplay for Rooms where Master will be an AI</li>
+              </ul>
+
+              <h2>Technologies Used:</h2>
+              <ul>
+                <li>Java</li>
+                <li>Spring Boot</li>
+                <li>Hibernate</li>
+                <li>MySQL</li>
+                <li>Angular</li>
+                <li>Jitsi (for handling audio and video for rooms)</li>
+                <li>Jitsi JWT (to protect video and audio streams)</li>
+              </ul>
+
+              <h2>Deployment:</h2>
+              <p>The application is deployed using Google Cloud VM Instances.</p>
+
+              <h2>Contact Information:</h2>
+              <p>Email: <a href="mailto:r.lukashenko@mail.ru">r.lukashenko&#64;mail.ru</a></p>
+              <p>GitHub: <a href="https://github.com/Dardem30" target="_blank">https://github.com/Dardem30</a></p>
+
+            </div>
+            <div class="item" id="content-statistic">
+
+            </div>
+          </section>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div *ngFor="let chat of chats">
+  <div class="chat-circle" [style]="'background-image: url(' + chat.contact.avatar + ');'" [style.right]="getChatRightMargin(chat, null)" (click)="toggleChat(chat, true)"></div>
+  <div id="panel" class="dialog-panel scale-in-br" [style.right]="getChatRightMargin(chat, chatDialog)" #chatDialog>
+    <div id="log" style="overflow-y: scroll;flex-grow: 1;padding-top: 20px;background: hsl(232, 18%, 8%)">
+
+      <div class="messageBody" style="margin-bottom: 30px" *ngFor="let message of chat.messages">
+        <img class="user-avatar" style="margin-top: -0.5rem;width: 2.2rem;height: 2.2rem;"
+             [src]="message.user.avatar"/>
+        <div class="messageBox" style="--user-color: #234A65">
+      <span class="meta">
+        <span class="pronoun"></span>
+        <span class="name">#{{message.user.nickName}}</span>
+        <i class="metaBG" style="background:  hsl(232, 16%, 15%)"></i>
+      </span>
+
+          <div style="width: 100%;color: #f7f7f7;padding-top: 10px">
+          <span class="message">{{message.message}}</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <textarea itemId="chat-input-message" class="message-textarea" style="height:35px;background: hsl(232, 16%, 15%)" placeholder="Start typing..."
+              (keydown.enter)="sendMessage($event, chat)" [(ngModel)]="message"></textarea>
+  </div>
+</div>

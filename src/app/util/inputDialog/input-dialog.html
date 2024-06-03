@@ -1,0 +1,11 @@
+<h2 mat-dialog-title>{{title}}</h2>
+<mat-dialog-content class="mat-typography">
+  <mat-form-field style="width: 100%;">
+    <mat-label>Password</mat-label>
+    <input matInput [type]="type" name="input" [(ngModel)]="input">
+  </mat-form-field>
+</mat-dialog-content>
+<mat-dialog-actions align="end">
+  <button mat-button mat-dialog-close>Cancel</button>
+  <button mat-button (click)="confirm()" cdkFocusInitial  style="margin-left: 10px">Apply</button>
+</mat-dialog-actions>

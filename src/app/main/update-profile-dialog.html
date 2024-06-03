@@ -1,0 +1,20 @@
+<h2 mat-dialog-title>Update Profile</h2>
+<mat-dialog-content>
+  <form>
+    <mat-form-field style="width: 100%;">
+      <mat-label>Name</mat-label>
+      <input matInput name="name" [(ngModel)]="data.name">
+      <mat-error *ngIf="data.name == null || data.name.trim() == ''">
+        Name is required
+      </mat-error>
+    </mat-form-field>
+    <mat-form-field style="width: 100%;">
+      <mat-label>NickName</mat-label>
+      <input matInput name="nickName" [(ngModel)]="data.nickName">
+      <mat-error *ngIf="data.nickName == null || data.nickName.trim() == ''">
+        NickName is required
+      </mat-error>
+    </mat-form-field>
+  </form>
+  <button (click)="saveRoom()">Save</button>
+</mat-dialog-content>

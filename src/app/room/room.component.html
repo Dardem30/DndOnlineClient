@@ -1,0 +1,55 @@
+<div style="display: flex;width: 100%;height: 100%;opacity: 0.9">
+  <div class="card-holder">
+    <div style="height: 24.6%;width: 100%">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+    <div style="height: 24.6%;width: 100%;margin-top: 5px;margin-bottom: 5px">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+    <div style="height: 24.6%;width: 100%;margin-top: 5px;margin-bottom: 5px">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+    <div style="height: 24.6%;width: 100%">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+  </div>
+  <div class="card-holder" style="display: flex; flex-direction: column">
+    <div id="log" style="flex-grow: 1;padding-top: 50px">
+      <div class="messageBody" *ngFor="let message of messages">
+        <img class="user-avatar" [src]="message.user.avatar"/>
+        <div class="messageBox" style="--user-color: #234A65">
+      <span class="meta">
+        <span id="pronoun-kogasilverdragon" class="pronoun"></span>
+        <span class="name">#{{message.user.nickName}}</span>
+        <i class="metaBG"></i>
+      </span>
+
+          <span class="message">{{message.message}}</span>
+        </div>
+      </div>
+    </div>
+    <div style="height: 50px;padding-bottom: 15px;padding-left: 3px">
+        <div style="width: 99%">
+          <textarea class="message-textarea" placeholder="Express something..." (keydown.enter)="sendMessage($event)" [(ngModel)]="message"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="card-holder">
+    <div style="height: 32.8%;width: 100%">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+    <div style="height: 32.8%;width: 100%;margin-top: 5px;margin-bottom: 5px">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+    <div style="height: 32.8%;width: 100%">
+      <video style="width: 100%;height: 100%" #videoElement autoplay></video>
+      <audio style="display: none" #audioElement autoplay></audio>
+    </div>
+  </div>
+</div>

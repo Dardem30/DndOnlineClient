@@ -6,6 +6,36 @@
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <script src="https://meet.jit.si/libs/lib-jitsi-meet.min.js"></script>
+  <link href="//netdna.bootstrapcdn.com/font-awesome/3.2.1/css/font-awesome.css" rel="stylesheet">
+
+  <script>
+    if (typeof global === 'undefined') {
+      var global = window;
+    }
+    function morph() {
+      var square = anime({
+        targets: '.circle',
+        duration: 300,
+        width: {
+          value: '300px',
+          easing: 'easeInOutQuart'
+        },
+        height: {
+          value: '500px',
+          easing: 'easeInOutQuart'
+        },
+        borderRadius: '0%',
+      })
+      var promise = square.finished.then(function(res) {
+        console.log('Morph Complete');
+      });
+    }
+
+  </script>
 </head>
 <body>
   <app-root></app-root>
